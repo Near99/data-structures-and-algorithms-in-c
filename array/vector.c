@@ -239,8 +239,7 @@ void vector_remove(vector v, data_type value)
     {
         if (*(v->array + i) != value)
         {
-            *(new_array + c) = *(v->array + i);
-            c++;
+            *(new_array + c++) = *(v->array + i);
         }
     }
 
