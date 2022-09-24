@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #define INIT_CAPACITY 16
 #define INIT_ARRAY_SIZE 0
@@ -34,49 +35,13 @@ void vector_insert(vector, data_type, int); // insert at given index and shift t
 void vector_delete(vector, int);            // delete element at given index and shift trailing elements to the left
 void vector_remove(vector, data_type);      // remove all elements matching given value
 
+// ut
+void test_vector();
+
 int main()
 {
-    vector my_vector = vector_create();
 
-    /**
-     * my_vector->array is a pointer of data_type type,
-     * currently pointing to the size of 16 INIT_CAPACITY
-     * of type data_type space on the heap.
-     * 
-     * These two values should be equal and it is ;).
-     */
-    for (int i = 0; i < INIT_CAPACITY; i++)
-    {
-        // printf("%p\n", (my_vector->array) + i);
-        // printf("%p\n", &(my_vector->array)[i]);
-    }
-
-    for (int i = 0; i < 10; i++)
-    {
-        if (i % 2 == 0)
-        {
-            vector_push(my_vector, 66);
-        }
-        vector_push(my_vector, i);
-    }
-
-    vector_insert(my_vector, 23, 9);
-
-    // vector_delete(my_vector, 3);
-    // vector_delete(my_vector, 8);
-
-    // vector_remove(my_vector, 66);
-    // vector_remove(my_vector, 23);
-
-    for (int i = 0; i < my_vector->size; i++)
-    {
-        printf("%d\n", *(my_vector->array + i));
-    }
-
-    printf("capacity: %d %d\n", my_vector->capacity, vector_capacity(my_vector));
-    printf("size: %d %d\n", my_vector->size, vector_size(my_vector));
-
-    vector_destory(my_vector);
+    test_vector();
 
     return 0;
 }
@@ -88,10 +53,10 @@ vector vector_create()
      * first mistake here is to write such code:
      *  struct _vector _v;
      *  vector v = &_v;
-     * As learned in the pointer lessons, memory allocation 
-     * apart from malloc will be on the stack, and the stack
-     * memory will be relased once the function get popped from 
-     * the stack, then all the information and data will get lost.
+     * As learned in the pointer lessons, memory allocation apart 
+     * from malloc will be on the stack, and the stack memory will 
+     * be relased once the function get popped from  the stack, 
+     * then all the information and data will get lost.
      */
     vector v = (vector)malloc(sizeof(struct _vector));
 
@@ -112,7 +77,6 @@ void vector_push(vector v, data_type value)
 {
     if (v->size >= v->capacity)
     {
-        printf("Out of capacity!!\n");
         vector_extend_capacity(v);
     }
     v->array[v->size++] = value;
@@ -120,13 +84,17 @@ void vector_push(vector v, data_type value)
 
 data_type vector_pop(vector v)
 {
+    if (v->size == 0)
+    {
+        printf("Vector is empty!\n");
+        exit(-1);
+    }
     data_type value = v->array[v->size - 1];
     v->size--;
 
     if (v->size * 4 < v->capacity)
     {
         // shrink the capacity to half its size, when only a quarter of the capacity is used.
-        printf("Shrink needed!\n");
         vector_shrink_capacity(v);
     }
 
@@ -135,10 +103,10 @@ data_type vector_pop(vector v)
 
 data_type vector_at(vector v, int index)
 {
-    if (index < 0 || index > v->size - 1) // less than current size - 1 cause index starting from 0; second mistake.
+    if (index < 0 || index > v->size - 1)
     {
         printf("Out of boundary!\n");
-        return -1;
+        exit(-1);
     }
 
     return v->array[index];
@@ -223,8 +191,8 @@ void vector_insert(vector v, data_type value, int index)
 {
     if (index < 0 || index > v->size - 1)
     {
-        printf("Out of boundary\n");
-        return;
+        printf("Out of boundary.\n");
+        exit(-1);
     }
 
     // make sure there is enough space.
@@ -249,7 +217,7 @@ void vector_delete(vector v, int index)
     if (index < 0 || index > v->size - 1)
     {
         printf("Out of boundary\n");
-        return;
+        exit(-1);
     }
 
     int i = v->size - index - 1; // number of elemenets to shift
@@ -272,3 +240,93 @@ void vector_remove(vector v, data_type value)
         }
     }
 }
+
+void test_vector()
+{
+    vector my_vector = vector_create();
+
+    /**
+     * my_vector->array is a pointer of data_type type, currently pointing 
+     * to the size of 16 INIT_CAPACITY of type data_type space on the heap.
+     * 
+     * These two values should be equal and it is ;).
+     */
+    for (int i = 0; i < INIT_CAPACITY; i++)
+    {
+        assert(((my_vector->array) + i) == (&(my_vector->array)[i]));
+    }
+    assert(vector_is_empty(my_vector) == VECTOR_TRUE);
+    printf("Test Case: vector_create() - Passed.\n");
+
+    int counter = 0;
+    for (int i = 0; i < 10000; i++)
+    {
+        vector_push(my_vector, i);
+        assert(vector_size(my_vector) == i + 1);
+        assert(vector_at(my_vector, i) == i);
+    }
+    assert(vector_size(my_vector) == 10000);
+    assert(vector_is_empty(my_vector) == VECTOR_FALSE);
+    printf("Test Case: vector_capacity() - Passed.\n");
+    printf("Test Case: vector_push() - Passed.\n");
+    printf("Test Case: vector_at() - Passed.\n");
+    printf("Test Case: vector_size() - Passed.\n");
+
+    for (int i = 0; i < 10000; i++)
+    {
+        if (i % 2 == 0)
+        {
+            *(my_vector->array + i) = -23;
+        }
+    }
+
+    for (int i = 0; i < 10000; i++)
+    {
+        vector_remove(my_vector, -23);
+    }
+    assert(vector_size(my_vector) == 5000);
+
+    for (int i = 0; i < 5000; i++)
+    {
+        assert((*(my_vector->array + i)) != -23);
+    }
+    printf("Test Case: vector_remove() - Passed.\n");
+
+    for (int i = 0; i < 5000; i++)
+    {
+        vector_pop(my_vector);
+    }
+    assert(vector_size(my_vector) == 0);
+    assert(vector_capacity(my_vector) == INIT_CAPACITY);
+    assert(vector_is_empty(my_vector) == VECTOR_TRUE);
+    printf("Test Case: vector_pop() - Passed.\n");
+    printf("Test Case: vector_is_empty() - Passed.\n");
+    printf("Test Case: vector_extend_capacity() - Passed.\n");
+    printf("Test Case: vector_shrink_capacity() - Passed.\n");
+
+    for (int i = 0; i < 10; i++)
+    {
+        vector_push(my_vector, i);
+    }
+    vector_insert(my_vector, -1996, 5);
+    assert(vector_size(my_vector) == 11);
+    assert(vector_at(my_vector, 5) == -1996);
+    for (int i = 10; i >= 6; i--)
+    {
+        assert(vector_at(my_vector, i) == i - 1);
+    }
+    printf("Test Case: vector_insert() - Passed.\n");
+
+    assert((vector_find(my_vector, -1996)) == 5);
+    printf("Test Case: vector_find() - Passed.\n");
+
+    vector_delete(my_vector, 5);
+    assert(vector_size(my_vector) == 10);
+    for (int i = 0; i < 10; i++)
+    {
+        assert(vector_at(my_vector, i) == i);
+    }
+    printf("Test Case: vector_delete() - Passed.\n");
+
+    vector_destory(my_vector);
+};
