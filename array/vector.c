@@ -53,9 +53,9 @@ vector vector_create()
      * first mistake here is to write such code:
      *  struct _vector _v;
      *  vector v = &_v;
-     * As learned in the pointer lessons, memory allocation apart 
-     * from malloc will be on the stack, and the stack memory will 
-     * be relased once the function get popped from  the stack, 
+     * As learned in the pointer lessons, memory allocation apart
+     * from malloc will be on the stack, and the stack memory will
+     * be relased once the function get popped from  the stack,
      * then all the information and data will get lost.
      */
     vector v = (vector)malloc(sizeof(struct _vector));
@@ -138,11 +138,11 @@ void vector_shrink_capacity(vector v)
     data_type *new_array = (data_type *)malloc(sizeof(data_type) * new_capacity);
 
     /**
-     * Well, I don't see anything reasonable checking if current size of the array 
-     * is less than new capacity as only four times of current size less than current 
-     * capacity will triger shrinking the current size will always be less than half 
+     * Well, I don't see anything reasonable checking if current size of the array
+     * is less than new capacity as only four times of current size less than current
+     * capacity will triger shrinking the current size will always be less than half
      * of the current capacity.
-     * 
+     *
      * But I'll just leave it there for now.
      */
     for (int i = 0; i < MIN(v->size, new_capacity); i++)
@@ -201,11 +201,9 @@ void vector_insert(vector v, data_type value, int index)
         vector_extend_capacity(v);
     }
 
-    // shifting
-    int i = v->size - index;
-    for (int j = 0; j < i; j++)
+    for (int i = v->size - 1; i >= index; i--)
     {
-        *((v->array + (v->size - 1)) + 1 - j) = *(v->array + (v->size - 1) - j);
+        *(v->array + i + 1) = *(v->array + i);
     }
 
     *(v->array + index) = value;
@@ -256,9 +254,9 @@ void test_vector()
     const int LOOP_T_HF = 500000;
 
     /**
-     * my_vector->array is a pointer of data_type type, currently pointing 
+     * my_vector->array is a pointer of data_type type, currently pointing
      * to the size of 16 INIT_CAPACITY of type data_type space on the heap.
-     * 
+     *
      * These two values should be equal and it is ;).
      */
     for (int i = 0; i < INIT_CAPACITY; i++)
