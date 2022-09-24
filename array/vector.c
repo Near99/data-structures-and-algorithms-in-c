@@ -312,25 +312,30 @@ void test_vector()
     printf("Test Case: vector_extend_capacity() - Passed.\n");
     printf("Test Case: vector_shrink_capacity() - Passed.\n");
 
-    for (int i = 0; i < 10; i++)
+    const int LOOP_I = 100000;
+    const int ASSERT_SIZE = LOOP_I + 1;
+    const int INSERT_INDEX = 50000;
+    const int AT_LOOP_T = INSERT_INDEX + 1;
+
+    for (int i = 0; i < LOOP_I; i++)
     {
         vector_push(my_vector, i);
     }
-    vector_insert(my_vector, -1996, 5);
-    assert(vector_size(my_vector) == 11);
-    assert(vector_at(my_vector, 5) == -1996);
-    for (int i = 10; i >= 6; i--)
+    vector_insert(my_vector, -1996, INSERT_INDEX);
+    assert(vector_size(my_vector) == ASSERT_SIZE);
+    assert(vector_at(my_vector, INSERT_INDEX) == -1996);
+    for (int i = LOOP_I; i >= AT_LOOP_T; i--)
     {
         assert(vector_at(my_vector, i) == i - 1);
     }
     printf("Test Case: vector_insert() - Passed.\n");
 
-    assert((vector_find(my_vector, -1996)) == 5);
+    assert((vector_find(my_vector, -1996)) == INSERT_INDEX);
     printf("Test Case: vector_find() - Passed.\n");
 
-    vector_delete(my_vector, 5);
-    assert(vector_size(my_vector) == 10);
-    for (int i = 0; i < 10; i++)
+    vector_delete(my_vector, INSERT_INDEX);
+    assert(vector_size(my_vector) == LOOP_I);
+    for (int i = 0; i < LOOP_I; i++)
     {
         assert(vector_at(my_vector, i) == i);
     }
