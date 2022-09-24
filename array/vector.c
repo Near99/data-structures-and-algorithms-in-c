@@ -232,18 +232,29 @@ void vector_delete(vector v, int index)
 
 void vector_remove(vector v, data_type value)
 {
+    data_type *new_array = (data_type *)malloc(sizeof(data_type) * v->capacity);
+    int c = 0;
+
     for (int i = 0; i < v->size; i++)
     {
-        if (*(v->array + i) == value)
+        if (*(v->array + i) != value)
         {
-            vector_delete(v, i);
+            *(new_array + c) = *(v->array + i);
+            c++;
         }
     }
+
+    free(v->array);
+    v->array = new_array;
+    v->size = c;
 }
 
 void test_vector()
 {
     vector my_vector = vector_create();
+
+    const int LOOP_T = 1000000;
+    const int LOOP_T_HF = 500000;
 
     /**
      * my_vector->array is a pointer of data_type type, currently pointing 
@@ -259,20 +270,20 @@ void test_vector()
     printf("Test Case: vector_create() - Passed.\n");
 
     int counter = 0;
-    for (int i = 0; i < 10000; i++)
+    for (int i = 0; i < LOOP_T; i++)
     {
         vector_push(my_vector, i);
         assert(vector_size(my_vector) == i + 1);
         assert(vector_at(my_vector, i) == i);
     }
-    assert(vector_size(my_vector) == 10000);
+    assert(vector_size(my_vector) == LOOP_T);
     assert(vector_is_empty(my_vector) == VECTOR_FALSE);
     printf("Test Case: vector_capacity() - Passed.\n");
     printf("Test Case: vector_push() - Passed.\n");
     printf("Test Case: vector_at() - Passed.\n");
     printf("Test Case: vector_size() - Passed.\n");
 
-    for (int i = 0; i < 10000; i++)
+    for (int i = 0; i < LOOP_T; i++)
     {
         if (i % 2 == 0)
         {
@@ -280,19 +291,16 @@ void test_vector()
         }
     }
 
-    for (int i = 0; i < 10000; i++)
-    {
-        vector_remove(my_vector, -23);
-    }
-    assert(vector_size(my_vector) == 5000);
+    vector_remove(my_vector, -23);
+    assert(vector_size(my_vector) == LOOP_T_HF);
 
-    for (int i = 0; i < 5000; i++)
+    for (int i = 0; i < LOOP_T_HF; i++)
     {
         assert((*(my_vector->array + i)) != -23);
     }
     printf("Test Case: vector_remove() - Passed.\n");
 
-    for (int i = 0; i < 5000; i++)
+    for (int i = 0; i < LOOP_T_HF; i++)
     {
         vector_pop(my_vector);
     }
