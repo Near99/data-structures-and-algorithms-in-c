@@ -79,7 +79,7 @@ void vector_push(vector v, data_type value)
     {
         vector_extend_capacity(v);
     }
-    v->array[v->size++] = value;
+    *(v->array + v->size++) = value;
 }
 
 data_type vector_pop(vector v)
@@ -89,7 +89,7 @@ data_type vector_pop(vector v)
         printf("Vector is empty!\n");
         exit(-1);
     }
-    data_type value = v->array[v->size - 1];
+    data_type value = *(v->array + v->size - 1);
     v->size--;
 
     if (v->size * 4 < v->capacity)
@@ -109,7 +109,7 @@ data_type vector_at(vector v, int index)
         exit(-1);
     }
 
-    return v->array[index];
+    return *(v->array + index);
 }
 
 void vector_extend_capacity(vector v)
@@ -118,7 +118,7 @@ void vector_extend_capacity(vector v)
 
     for (int i = 0; i < v->size; i++)
     {
-        new_capacity[i] = v->array[i];
+        *(new_capacity + i) = *(v->array + i);
     }
 
     free(v->array);
@@ -147,7 +147,7 @@ void vector_shrink_capacity(vector v)
      */
     for (int i = 0; i < MIN(v->size, new_capacity); i++)
     {
-        new_array[i] = v->array[i];
+        *(new_array + i) = *(v->array + i);
     }
 
     free(v->array);
@@ -168,7 +168,7 @@ int vector_find(vector v, data_type value)
 {
     for (int index = 0; index < v->size; index++)
     {
-        if (value == v->array[index])
+        if (value == *(v->array + index))
         {
             return index;
         }
