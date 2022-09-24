@@ -3,6 +3,9 @@
 
 #define INIT_CAPACITY 16
 #define INIT_ARRAY_SIZE 0
+#define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
+#define VECTOR_TRUE 1
+#define VECTOR_FALSE 0
 
 typedef int data_type;
 
@@ -18,11 +21,18 @@ typedef struct _vector *vector;
 // prototypes
 vector vector_create();
 void vector_destory(vector);
-void vector_push(vector, data_type);
-data_type vector_pop(vector);
-data_type vector_at(vector, int);
-void vector_extend_capacity(vector);
-void vector_shrink_capacity(vector);
+void vector_extend_capacity(vector);        // private
+void vector_shrink_capacity(vector);        // private
+void vector_push(vector, data_type);        // add element to the end
+data_type vector_pop(vector);               // remove the last element
+data_type vector_at(vector, int);           // return element given index
+int vector_is_empty(vector);                // if vector is empty
+int vector_find(vector, data_type);         // return the first index of the given value
+int vector_size(vector);                    // number of elements
+int vector_capacity(vector);                // capacity
+void vector_insert(vector, data_type, int); // insert at given index and shift trailing elements to the right
+void vector_delete(vector, int);            // delete element at given index and shift trailing elements to the left
+void vector_remove(vector, data_type);      // remove all elements matching given value
 
 int main()
 {
@@ -41,24 +51,32 @@ int main()
         // printf("%p\n", &(my_vector->array)[i]);
     }
 
-    for (int i = 0; i < 80; i++)
+    for (int i = 0; i < 10; i++)
     {
-        vector_push(my_vector, 1990 + i);
+        if (i % 2 == 0)
+        {
+            vector_push(my_vector, 66);
+        }
+        vector_push(my_vector, i);
     }
+
+    vector_insert(my_vector, 23, 9);
+
+    // vector_delete(my_vector, 3);
+    // vector_delete(my_vector, 8);
+
+    // vector_remove(my_vector, 66);
+    // vector_remove(my_vector, 23);
 
     for (int i = 0; i < my_vector->size; i++)
     {
-        // printf("%d\n", my_vector->array[i]);
+        printf("%d\n", *(my_vector->array + i));
     }
 
-    printf("capacity: %d\n", my_vector->capacity);
-    printf("size: %d\n", my_vector->size);
+    printf("capacity: %d %d\n", my_vector->capacity, vector_capacity(my_vector));
+    printf("size: %d %d\n", my_vector->size, vector_size(my_vector));
 
-    data_type f = vector_pop(my_vector);
-    data_type r = vector_at(my_vector, 79);
-
-    printf("%d\n", r);
-    printf("%d\n", f);
+    vector_destory(my_vector);
 
     return 0;
 }
@@ -105,11 +123,11 @@ data_type vector_pop(vector v)
     data_type value = v->array[v->size - 1];
     v->size--;
 
-    if (v->size < v->capacity / 2)
+    if (v->size * 4 < v->capacity)
     {
-        // todos..
-        // shrink the capacity to half its size;
+        // shrink the capacity to half its size, when only a quarter of the capacity is used.
         printf("Shrink needed!\n");
+        vector_shrink_capacity(v);
     }
 
     return value;
@@ -135,9 +153,9 @@ void vector_extend_capacity(vector v)
         new_capacity[i] = v->array[i];
     }
 
-    v->capacity = v->capacity * 2;
     free(v->array);
     v->array = new_capacity;
+    v->capacity = v->capacity * 2;
 }
 
 void vector_shrink_capacity(vector v)
@@ -147,14 +165,110 @@ void vector_shrink_capacity(vector v)
         return;
     }
 
-    data_type *new_capacity = (data_type *)malloc(sizeof(data_type) * (v->capacity / 2));
+    int new_capacity = v->capacity / 2;
 
-    for (int i = 0; i < v->size; i++)
+    data_type *new_array = (data_type *)malloc(sizeof(data_type) * new_capacity);
+
+    /**
+     * Well, I don't see anything reasonable checking if current size of the array 
+     * is less than new capacity as only four times of current size less than current 
+     * capacity will triger shrinking the current size will always be less than half 
+     * of the current capacity.
+     * 
+     * But I'll just leave it there for now.
+     */
+    for (int i = 0; i < MIN(v->size, new_capacity); i++)
     {
-        new_capacity[i] = v->array[i];
+        new_array[i] = v->array[i];
     }
 
-    v->capacity = v->capacity / 2;
     free(v->array);
-    v->array = new_capacity;
+    v->array = new_array;
+    v->capacity = new_capacity;
+    v->size = MIN(v->size, new_capacity); // again I don't think it's necessary.
+}
+
+/**
+ * Return true if array is empty.
+ */
+int vector_is_empty(vector v)
+{
+    return v->size == 0 ? VECTOR_TRUE : VECTOR_FALSE;
+}
+
+int vector_find(vector v, data_type value)
+{
+    for (int index = 0; index < v->size; index++)
+    {
+        if (value == v->array[index])
+        {
+            return index;
+        }
+    }
+
+    return -1;
+}
+
+int vector_size(vector v)
+{
+    return v->size;
+}
+
+int vector_capacity(vector v)
+{
+    return v->capacity;
+}
+
+void vector_insert(vector v, data_type value, int index)
+{
+    if (index < 0 || index > v->size - 1)
+    {
+        printf("Out of boundary\n");
+        return;
+    }
+
+    // make sure there is enough space.
+    if (v->size + 1 >= v->capacity)
+    {
+        vector_extend_capacity(v);
+    }
+
+    // shifting
+    int i = v->size - index;
+    for (int j = 0; j < i; j++)
+    {
+        *((v->array + (v->size - 1)) + 1 - j) = *(v->array + (v->size - 1) - j);
+    }
+
+    *(v->array + index) = value;
+    v->size++;
+}
+
+void vector_delete(vector v, int index)
+{
+    if (index < 0 || index > v->size - 1)
+    {
+        printf("Out of boundary\n");
+        return;
+    }
+
+    int i = v->size - index - 1; // number of elemenets to shift
+    int j = index + 1;           // starting point to shift to the left
+    for (int k = 0; k < i; k++)
+    {
+        *(v->array + k + j - 1) = *(v->array + k + j);
+    }
+
+    v->size--;
+}
+
+void vector_remove(vector v, data_type value)
+{
+    for (int i = 0; i < v->size; i++)
+    {
+        if (*(v->array + i) == value)
+        {
+            vector_delete(v, i);
+        }
+    }
 }
