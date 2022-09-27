@@ -58,11 +58,11 @@ vector vector_create()
      * be relased once the function get popped from  the stack,
      * then all the information and data will get lost.
      */
-    vector v = (vector)malloc(sizeof(struct _vector));
+    vector v = malloc(sizeof(struct _vector));
 
     v->size = INIT_ARRAY_SIZE;
     v->capacity = INIT_CAPACITY;
-    v->array = (data_type *)malloc(sizeof(data_type) * (v->capacity));
+    v->array = malloc(sizeof(data_type) * (v->capacity));
 
     return v;
 }
@@ -114,7 +114,7 @@ data_type vector_at(vector v, int index)
 
 void vector_extend_capacity(vector v)
 {
-    data_type *new_capacity = (data_type *)malloc(sizeof(data_type) * (v->capacity * 2));
+    data_type *new_capacity = malloc(sizeof(data_type) * (v->capacity * 2));
 
     for (int i = 0; i < v->size; i++)
     {
@@ -135,7 +135,7 @@ void vector_shrink_capacity(vector v)
 
     int new_capacity = v->capacity / 2;
 
-    data_type *new_array = (data_type *)malloc(sizeof(data_type) * new_capacity);
+    data_type *new_array = malloc(sizeof(data_type) * new_capacity);
 
     /**
      * Well, I don't see anything reasonable checking if current size of the array
@@ -230,7 +230,7 @@ void vector_delete(vector v, int index)
 
 void vector_remove(vector v, data_type value)
 {
-    data_type *new_array = (data_type *)malloc(sizeof(data_type) * v->capacity);
+    data_type *new_array = malloc(sizeof(data_type) * v->capacity);
     int c = 0;
 
     for (int i = 0; i < v->size; i++)
@@ -266,7 +266,6 @@ void test_vector()
     assert(vector_is_empty(my_vector) == VECTOR_TRUE);
     printf("Test Case: vector_create() - Passed.\n");
 
-    int counter = 0;
     for (int i = 0; i < LOOP_T; i++)
     {
         vector_push(my_vector, i);
