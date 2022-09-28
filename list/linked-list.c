@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #define LIST_TRUE 1
 #define LIST_FALSE 0
@@ -29,33 +30,15 @@ void list_traverse(list *);
 void list_recursive(struct node *);
 void list_destory(list *);
 void list_remove(list *, data_type);
-void liset_insert_by_index(list *, int, data_type);
+void list_insert_by_index(list *, int, data_type);
 int list_empty(list *);
 int list_size(list *);
-
-// todos...
 void list_reverse(list *);
+void list_test();
 
 int main()
 {
-    list *my_list = list_create();
-
-    for (int i = 0; i < 10; i++)
-    {
-        list_insert_front(my_list, i + 1);
-    }
-
-    list_traverse(my_list);
-
-    printf("\n");
-
-    list_reverse(my_list);
-
-    printf("\n");
-
-    list_traverse(my_list);
-
-    list_destory(my_list);
+    list_test();
 
     return 0;
 }
@@ -92,6 +75,17 @@ void list_insert_back(list *l, data_type data)
     new_node->data = data;
     new_node->next = NULL;
 
+    if (l->head == NULL)
+    {
+        l->head = new_node;
+    }
+
+    if (l->tail == NULL)
+    {
+        l->tail = new_node;
+        return;
+    }
+
     l->tail->next = new_node;
     l->tail = new_node;
 }
@@ -101,6 +95,11 @@ data_type list_pop_front(list *l)
     struct node *p = l->head;
     data_type r = p->data;
 
+    if (l->head == l->tail)
+    {
+        l->tail = NULL;
+    }
+
     l->head = p->next;
     free(p);
 
@@ -109,8 +108,21 @@ data_type list_pop_front(list *l)
 
 data_type list_pop_back(list *l)
 {
+    if (l->head == NULL)
+    {
+        printf("Empty list!\n");
+        exit(EXIT_FAILURE);
+    }
     struct node **p = &l->head;
     data_type r = l->tail->data;
+
+    if ((*p) == l->tail)
+    {
+        free(l->tail);
+        l->tail = NULL;
+        l->head = NULL;
+        return r;
+    }
 
     while ((*p)->next != l->tail)
     {
@@ -124,7 +136,7 @@ data_type list_pop_back(list *l)
     return r;
 }
 
-void liset_insert_by_index(list *l, int index, data_type value)
+void list_insert_by_index(list *l, int index, data_type value)
 {
     if (index < 0 || index >= list_size(l))
     {
@@ -149,8 +161,6 @@ void liset_insert_by_index(list *l, int index, data_type value)
         index--;
     }
 
-    // printf("prev %d\n", p->data);
-    // printf("curr %d\n", (*c)->data);
     new_node->next = *c;
     p->next = new_node;
 }
@@ -199,8 +209,8 @@ void list_remove(list *l, data_type target)
 
 void list_reverse(list *l)
 {
-    l->tail = l->head;
     struct node *prev = NULL, *curr = l->head, *next;
+    l->tail = l->head;
     while (curr != NULL)
     {
         next = curr->next;
@@ -253,4 +263,109 @@ void list_recursive(struct node *l)
     }
     printf("%d\n", l->data);
     list_recursive(l->next);
+}
+
+void list_test()
+{
+    list *my_list = list_create();
+
+    assert(list_size(my_list) == 0);
+    assert(list_empty(my_list) == LIST_TRUE);
+    assert(my_list->head == NULL && my_list->tail == NULL);
+    printf("Test Case: list_create() - Passed.\n");
+
+    const int LOOP_F = 10000000;
+    for (int i = 0; i < LOOP_F; i++)
+    {
+        list_insert_front(my_list, i + 1);
+        assert(my_list->head->data == i + 1);
+    }
+    assert(list_size(my_list) == LOOP_F);
+    assert(list_empty(my_list) == LIST_FALSE);
+    assert(my_list->tail->data == 1);
+    printf("Test Case: list_size() - Passed.\n");
+    printf("Test Case: list_empty() - Passed.\n");
+    printf("Test Case: list_insert_front() - Passed.\n");
+
+    for (int i = LOOP_F; i > 0; i--)
+    {
+        if (my_list->head != NULL)
+        {
+
+            assert(my_list->head->data == i);
+        }
+        if (my_list->tail != NULL)
+        {
+            assert(my_list->tail->data == 1);
+        }
+        assert(list_pop_front(my_list) == i);
+    }
+    assert(my_list->head == NULL);
+    assert(my_list->tail == NULL);
+    printf("Test Case: list_pop_front() - Passed.\n");
+
+    const int LOOP_B = 1000;
+    for (int i = 0; i < LOOP_B; i++)
+    {
+        list_insert_front(my_list, i + 1);
+    }
+
+    for (int i = LOOP_B - 1; i >= 0; i--)
+    {
+        assert(list_search_by_index(my_list, i) == list_pop_back(my_list));
+    }
+    printf("Test Case: list_search_by_index() - Passed.\n");
+
+    for (int i = 0; i < LOOP_B; i++)
+    {
+        list_insert_front(my_list, i + 1);
+    }
+    for (int i = 0; i < LOOP_B; i++)
+    {
+        if (my_list->tail != NULL)
+        {
+            assert(my_list->tail->data == i + 1);
+        }
+        assert(list_pop_back(my_list) == i + 1);
+    }
+    assert(my_list->tail == NULL);
+    assert(my_list->head == NULL);
+    assert(list_size(my_list) == 0);
+    printf("Test Case: list_pop_back() - Passed.\n");
+
+    for (int i = 0; i < LOOP_F; i++)
+    {
+        list_insert_back(my_list, i + 1);
+        assert(my_list->head->data == 1);
+        assert(my_list->tail->data == i + 1);
+    }
+    assert(list_size(my_list) == LOOP_F);
+    printf("Test Case: list_insert_back() - Passed.\n");
+
+    for (int i = 0; i < LOOP_F; i++)
+    {
+        list_remove(my_list, i + 1);
+    }
+    assert(list_size(my_list) == 0);
+    assert(my_list->tail == NULL);
+    assert(my_list->head == NULL);
+    printf("Test Case: list_remove() - Passed.\n");
+
+    for (int i = 0; i < 10; i++)
+    {
+        list_insert_back(my_list, -1);
+    }
+    for (int i = 0; i < 10; i++)
+    {
+        list_insert_by_index(my_list, i, i);
+        assert(list_search_by_index(my_list, i) == i);
+    }
+    for (int i = 19; i >= 10; i--)
+    {
+        list_insert_by_index(my_list, i, i);
+        assert(list_search_by_index(my_list, i) == i);
+    }
+    printf("Test Case: list_search_by_index() - Passed.\n");
+
+    list_destory(my_list);
 }
