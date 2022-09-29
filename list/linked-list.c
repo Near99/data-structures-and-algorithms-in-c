@@ -38,13 +38,13 @@ void remove_kth_node_from_end(list *, int);
 void remove_duplicates_from_linked_list(list *);
 
 // unit test
-void list_test();
+void test_all();
 void test_remove_kth_node_from_end();
 void test_remove_duplicates_from_linked_list();
 
 int main()
 {
-    list_test();
+    test_all();
 
     test_remove_kth_node_from_end();
 
@@ -330,7 +330,7 @@ void remove_kth_node_from_end(list *l, int k)
     free(d);
 }
 
-void list_test()
+void test_all()
 {
     printf("Running all the tests...\n");
     list *my_list = list_create();
