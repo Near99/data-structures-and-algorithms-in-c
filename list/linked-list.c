@@ -92,7 +92,14 @@ list *sum_of_linked_lists(list *l1, list *l2)
             }
             else
             {
-                new_node->data = lp->data + k;
+                if (lp == NULL)
+                {
+                    new_node->data = k;
+                }
+                else
+                {
+                    new_node->data = lp->data + k;
+                }
                 k--;
             }
         }
@@ -104,19 +111,28 @@ list *sum_of_linked_lists(list *l1, list *l2)
         }
         else
         {
-            printf("called\n");
             (*pp)->next = new_node;
             pp = &(*pp)->next;
             // printf("%d\n", new_node->data);
         }
-        if (lp->next == NULL)
+        // printf("%p\n", lp);
+        if (lp && lp->next == NULL)
         {
             l->tail = new_node;
+            // printf("%p\n", lp->next);
             // printf("%d\n", l->tail->data);
             // printf("called changing tail\n");
         }
-        lp = lp->next;
-        // lp2 = lp2->next;
+        // printf("called3\n");
+        if (lp)
+        {
+            lp = lp->next;
+        }
+        else
+        {
+            printf("%d\n", l->tail->next);
+            // l->tail->next = NULL;
+        }
         // printf("called\n");
     }
     return l;
@@ -131,30 +147,30 @@ void test_sum_of_linked_lists()
     /**
      * @brief Test Case 1.
      */
-    data_type test_case_1_1[] = {2, 4, 7, 1};
-    data_type test_case_1_2[] = {9, 4, 5};
-    data_type test_case_1_output[] = {1, 9, 2, 2};
-    for (int i = 0; i < sizeof(test_case_1_1) / sizeof(data_type); i++)
-    {
-        list_insert_back(l1, test_case_1_1[i]);
-    }
-    for (int i = 0; i < sizeof(test_case_1_2) / sizeof(data_type); i++)
-    {
-        list_insert_back(l2, test_case_1_2[i]);
-    }
-    l = sum_of_linked_lists(l1, l2);
-    assert(l->head->data == 1 && l->tail->data == 2 && l->tail->next == NULL);
-    for (int i = 0; i < sizeof(test_case_1_output) / sizeof(data_type); i++)
-    {
-        assert(test_case_1_output[i] == list_pop_front(l));
-    }
-    assert(list_empty(l) == LIST_TRUE && list_size(l) == 0 && l->head == NULL && l->tail == NULL);
-    list_destory(l1);
-    list_destory(l2);
-    l1 = list_create();
-    l2 = list_create();
-    assert(list_empty(l1) && list_empty(l2));
-    printf("Test Case 1 Passed\n");
+    // data_type test_case_1_1[] = {2, 4, 7, 1};
+    // data_type test_case_1_2[] = {9, 4, 5};
+    // data_type test_case_1_output[] = {1, 9, 2, 2};
+    // for (int i = 0; i < sizeof(test_case_1_1) / sizeof(data_type); i++)
+    // {
+    //     list_insert_back(l1, test_case_1_1[i]);
+    // }
+    // for (int i = 0; i < sizeof(test_case_1_2) / sizeof(data_type); i++)
+    // {
+    //     list_insert_back(l2, test_case_1_2[i]);
+    // }
+    // l = sum_of_linked_lists(l1, l2);
+    // assert(l->head->data == 1 && l->tail->data == 2 && l->tail->next == NULL);
+    // for (int i = 0; i < sizeof(test_case_1_output) / sizeof(data_type); i++)
+    // {
+    //     assert(test_case_1_output[i] == list_pop_front(l));
+    // }
+    // assert(list_empty(l) == LIST_TRUE && list_size(l) == 0 && l->head == NULL && l->tail == NULL);
+    // list_destory(l1);
+    // list_destory(l2);
+    // l1 = list_create();
+    // l2 = list_create();
+    // assert(list_empty(l1) && list_empty(l2));
+    // printf("Test Case 1 Passed\n");
 
     /**
      * @brief Test Case 2.
@@ -171,14 +187,15 @@ void test_sum_of_linked_lists()
         list_insert_back(l2, test_case_2_2[i]);
     }
     l = sum_of_linked_lists(l1, l2);
-    list_traverse(l);
+    // list_traverse(l);
     // assert(l->head->data == 1 && l->tail->data == 1 && l->tail->next == NULL);
-    // for (int i = 0; i < sizeof(test_case_2_output) / sizeof(data_type); i++)
-    // {
-    //     assert(test_case_2_output[i] == list_pop_front(l));
-    // }
-    // assert(list_empty(l) == LIST_TRUE && list_size(l) == 0 && l->head == NULL && l->tail == NULL);
-    // printf("Test Case 2 Passed\n");
+    // assert(l->tail->next == NULL);
+    for (int i = 0; i < sizeof(test_case_2_output) / sizeof(data_type); i++)
+    {
+        assert(test_case_2_output[i] == list_pop_front(l));
+    }
+    assert(list_empty(l) == LIST_TRUE && list_size(l) == 0 && l->head == NULL && l->tail == NULL);
+    printf("Test Case 2 Passed\n");
 }
 
 int main()
