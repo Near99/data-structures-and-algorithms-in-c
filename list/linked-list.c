@@ -223,7 +223,7 @@ void list_remove(list *l, data_type target)
 
 void list_reverse(list *l)
 {
-    struct node *prev = NULL, *curr = l->head, *next;
+    struct node *prev = NULL, *curr = l->head, *next = NULL;
     l->tail = l->head;
     while (curr != NULL)
     {
