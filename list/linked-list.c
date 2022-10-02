@@ -337,83 +337,48 @@ void remove_kth_node_from_end(list *l, int k)
 list *sum_of_linked_lists(list *l1, list *l2)
 {
     list *l = list_create();
-    int ls1 = list_size(l1);
-    int ls2 = list_size(l2);
-    struct node *lp = ls1 > ls2 ? l1->head : l2->head;
-    struct node *lp2 = ls1 <= ls2 ? l1->head : l2->head;
-    struct node **pp = &l->head;
-    int k = 0;
-    while (lp != NULL || k != 0)
+    struct node *pp = l->head, *p1 = l1->head, *p2 = l2->head;
+    int c = 0;
+    while (p1 != NULL || p2 != NULL)
     {
-        struct node *new_node = malloc(sizeof(struct node));
-        new_node->next = NULL;
-        if (lp2 != NULL)
-        {
-            int i = lp->data + lp2->data;
-            if ((i < 10) && (k == 0))
-            {
-                new_node->data = i;
-            }
-            else if ((i < 10) && (k != 0))
-            {
-                new_node->data = i + k;
-                k--;
-            }
-            else if ((i >= 10) && (k == 0))
-            {
-                int j = i % 10;
-                new_node->data = j;
-                k++;
-            }
-            else if ((i >= 10) && (k != 0))
-            {
-                int r = i % 10;
-                new_node->data = r + k;
-            }
-            lp2 = lp2->next;
-        }
-        else
-        {
-            if (k == 0)
-            {
-                new_node->data = lp->data;
-            }
-            else
-            {
-                if (lp == NULL)
-                {
-                    new_node->data = k;
-                }
-                else
-                {
-                    new_node->data = lp->data + k;
-                }
-                k--;
-            }
-        }
+        int p1d = p1 != NULL ? p1->data : 0;
+        int p2d = p2 != NULL ? p2->data : 0;
+        int i = p1d + p2d + c;
+        c = i / 10;
+        int d = i % 10;
+
+        struct node *n = malloc(sizeof(struct node));
+        n->data = d;
+        n->next = NULL;
+
         if (l->head == NULL)
         {
-            l->head = new_node;
-            l->tail = new_node;
+            l->head = n;
         }
         else
         {
-            (*pp)->next = new_node;
-            pp = &(*pp)->next;
+            pp->next = n;
         }
-        if (lp && lp->next == NULL)
+        l->tail = n;
+        pp = n;
+        if (p1 != NULL)
         {
-            l->tail = new_node;
+            p1 = p1->next;
         }
-        if (lp)
+        if (p2 != NULL)
         {
-            lp = lp->next;
-        }
-        else
-        {
-            l->tail = new_node;
+            p2 = p2->next;
         }
     }
+    if (c > 0)
+    {
+        struct node *n = malloc(sizeof(struct node));
+        n->data = c;
+        n->next = NULL;
+        pp->next = n;
+        l->tail = n;
+    }
+
     return l;
 }
 
