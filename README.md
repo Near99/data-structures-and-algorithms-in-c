@@ -2,7 +2,7 @@
 
 ## Array
 
-### :heavy_check_mark: vector implementation. 
+### :heavy_check_mark: Vector implementation. 
 
 - [x] `vector_create()`          - create a new vector.
 - [x] `vector_destory()`         - destory a vector. 
@@ -23,7 +23,7 @@
 
 ## List
 
-### :heavy_check_mark: singly linked list with tail implementation.
+### :heavy_check_mark: Singly linked list with tail implementation.
 
 - [x] `list_create()`           - create a new linked list.
 - [x] `list_insert_front()`     - insert a node at front of the list.
