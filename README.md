@@ -4,8 +4,8 @@
 
 ### :heavy_check_mark: vector implementation. 
 
-- [x] `vector_create()` - create a new vector.
-- [x] `vector_destory()`  - destory a vector. 
+- [x] `vector_create()`          - create a new vector.
+- [x] `vector_destory()`         - destory a vector. 
 - [x] `vector_extend_capacity()` - double the capacity automatically when needed.
 - [x] `vector_shrink_capacity()` - shrink the capacity automatically when needed.
 - [x] `vector_push()` - add element to the end of the vector.
