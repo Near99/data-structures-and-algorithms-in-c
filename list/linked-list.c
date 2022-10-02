@@ -405,7 +405,6 @@ void test_all()
     {
         if (my_list->head != NULL)
         {
-
             assert(my_list->head->data == i);
         }
         if (my_list->tail != NULL)
