@@ -33,7 +33,7 @@
 - [x] `list_pop_front()`        - remove the first node of the list.
 - [x] `list_pop_back()`         - remove the last node of the list.
 - [x] `list_traverse()`         - traverse the list and print the value.
-- [x] `list_recursive()`        - traverse the linked list recursively servers as a helper function to `list_traverse() api`.
+- [x] `list_recursive()`        - traverse the linked list recursively servers as a helper function to `list_traverse()` api.
 - [x] `list_destory()`          - destory the list and release the memory.
 - [x] `list_remove()`           - remove the node by the given value.
 - [x] `list_empty()`            - if list is empty.
