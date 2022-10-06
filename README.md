@@ -21,7 +21,9 @@
 
 ### Array algorithms done:
 
+- [ ] Two Sum
 - [ ] Validate Subsequence.
+- [ ] Best Time to Buy and Sell Stock.
 - [ ] Move Element to End.
 - [ ] Spiral Traverse.
 - [ ] Longest Peak.
@@ -53,3 +55,4 @@
 - [x] Remove Duplicates From Linked List.
 - [x] Sum of Linked Lists.
 - [ ] Merge Linked List.
+- [ ] Detect Cycle in a Linked List.
