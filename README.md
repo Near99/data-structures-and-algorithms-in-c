@@ -19,7 +19,7 @@
 - [x] `vector_delete()`          - delete the element at given index and shift trailing elements to the left.
 - [x] `vector_remove()`          - remove all matched elements.
 
-### Array algorithms done:
+### Array algorithm questions done:
 
 - [ ] Two Sum
 - [ ] Validate Subsequence.
@@ -48,7 +48,7 @@
 - [x] `list_empty()`            - if list is empty.
 - [x] `list_size()`             - size of the list.
 
-### Linked-list algorithms done: 
+### Linked-list algorithm questions done: 
 
 - [x] Reverse Linked List.
 - [x] Remove Kth Node From End.
