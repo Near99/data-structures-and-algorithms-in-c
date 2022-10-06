@@ -19,7 +19,14 @@
 - [x] `vector_delete()`          - delete the element at given index and shift trailing elements to the left.
 - [x] `vector_remove()`          - remove all matched elements.
 
-### Array algorithms done: None.
+### Array algorithms done:
+
+- [ ] Validate Subsequence.
+- [ ] Move Element to End.
+- [ ] Spiral Traverse.
+- [ ] Longest Peak.
+- [ ] First Duplicate Value.
+- [ ] Four Number Sum.
 
 ## List
 
@@ -45,3 +52,4 @@
 - [x] Remove Kth Node From End.
 - [x] Remove Duplicates From Linked List.
 - [x] Sum of Linked Lists.
+- [ ] Merge Linked List.
