@@ -56,3 +56,11 @@
 - [x] Sum of Linked Lists.
 - [ ] Merge Linked List.
 - [ ] Detect Cycle in a Linked List.
+
+## Stack
+
+### :heavy_check_mark: Implementation not needed.
+
+### Stack algorithm questions done:
+
+- [ ] Balanced Brackets.
