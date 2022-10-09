@@ -63,7 +63,8 @@
 
 ### Stack algorithm questions done:
 
-- [ ] Balanced Brackets.
+- [x] Balanced Brackets.
+- [ ] Next Greater Element.
 
 ## Queue
 
