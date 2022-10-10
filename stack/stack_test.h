@@ -7,5 +7,6 @@
 
 void test_all();
 void test_balanced_brackets();
+void test_next_greater_element();
 
 #endif
