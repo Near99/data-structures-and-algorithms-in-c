@@ -212,6 +212,36 @@ void test_balanced_brackets()
     size_t size_23 = strlen(string_23);
     assert(balanced_brackets(string_23, size_23) == STACK_TRUE);
     printf("Test Case 23 Passed.\n");
-    // printf("Passed all the test cases.\n\n");
+    printf("Passed all the test cases.\n\n");
+}
+
+void test_next_greater_element()
+{
+    printf("Start running test cases for next_greater_element().\n");
+    /**
+     * @brief Test Case 1.
+     */
+    int arr_1[] = {4, 5, 2, 25};
+    int arr_output_1[] = {5, 25, 25, -1};
+    size_t size_1 = sizeof(arr_1) / sizeof(int);
+    int *res_1 = next_greater_element(arr_1, size_1);
+    for (int i = 0; i < size_1; i++)
+    {
+        assert(res_1[i] == arr_output_1[i]);
+    }
+    printf("Test Case 1 Passed.\n");
+
+    /**
+     * @brief Test Case 2.
+     */
+    int arr_2[] = {13, 7, 6, 12};
+    int arr_output_2[] = {-1, 12, 12, -1};
+    size_t size_2 = sizeof(arr_2) / sizeof(int);
+    int *res_2 = next_greater_element(arr_2, size_2);
+    for (int i = 0; i < size_2; i++)
+    {
+        assert(res_2[i] == arr_output_2[i]);
+    }
+    printf("Test Case 2 Passed.\n");
     printf("Passed all the test cases.\n");
 }
