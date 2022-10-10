@@ -1,3 +1,7 @@
+/**
+ * Super super simple and basic stack implementation with linked list,
+ * mostly because I wanted to do some algorithm questions about stack.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 
