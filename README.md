@@ -59,7 +59,12 @@
 
 ## Stack
 
-### :heavy_check_mark: Implementation not needed.
+### :heavy_check_mark: Stack implementation with linked list.
+
+- [x] `stack_create()`          - create a new stack.
+- [x] `stack_push()`            - add an element to the stack.
+- [x] `stack_pop()`             - remove an element from the stack.
+- [x] `stack_is_empty()`        - if stack is empty.
 
 ### Stack algorithm questions done:
 
