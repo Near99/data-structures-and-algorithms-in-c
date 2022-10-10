@@ -19,14 +19,14 @@
 - [x] `vector_delete()`          - delete the element at given index and shift trailing elements to the left.
 - [x] `vector_remove()`          - remove all matched elements.
 
-### Array algorithm questions done:
+### Array algorithm practice questions:
 
-- [ ] Two Sum
-- [ ] Validate Subsequence.
+- [x] Two Sum
+- [x] Validate Subsequence.
 - [ ] Best Time to Buy and Sell Stock.
-- [ ] Move Element to End.
-- [ ] Spiral Traverse.
-- [ ] Longest Peak.
+- [x] Move Element to End.
+- [x] Spiral Traverse.
+- [x] Longest Peak.
 - [ ] First Duplicate Value.
 - [ ] Four Number Sum.
 
@@ -48,7 +48,7 @@
 - [x] `list_empty()`            - if list is empty.
 - [x] `list_size()`             - size of the list.
 
-### Linked-list algorithm questions done: 
+### Linked-list algorithm practice questions: 
 
 - [x] Reverse Linked List.
 - [x] Remove Kth Node From End.
@@ -66,7 +66,7 @@
 - [x] `stack_pop()`             - remove an element from the stack.
 - [x] `stack_is_empty()`        - if stack is empty.
 
-### Stack algorithm questions done:
+### Stack algorithm practice questions:
 
 - [x] Balanced Brackets.
 - [x] Next Greater Element.
