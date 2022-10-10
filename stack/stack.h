@@ -24,5 +24,6 @@ int stack_pop(Stack *stack);
 int stack_top(Stack stack);
 int stack_is_empty(Stack stack);
 int balanced_brackets(const char *string, int size);
+int *next_greater_element(int *arr, int size);
 
 #endif
