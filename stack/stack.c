@@ -68,11 +68,7 @@ int balanced_brackets(const char *string, int size)
         }
         else if (b == ')' || b == '}' || b == ']')
         {
-            if (stack_is_empty(s))
-            {
-                return STACK_FALSE;
-            }
-            if ((b - stack_pop(&s)) > 2)
+            if (stack_is_empty(s) || (b - stack_pop(&s)) > 2) // use ascii to check if the brackets are pairs.
             {
                 return STACK_FALSE;
             }
