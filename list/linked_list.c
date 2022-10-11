@@ -263,13 +263,13 @@ void remove_kth_node_from_end(list *l, int k)
         d = d->next;
         j--;
     }
-    if (p == NULL) // hanlde if the head is to be delete.
+    if (p == NULL) // hanlde if the head is to be deleted.
     {
         l->head = d->next;
         free(d);
         return;
     }
-    if (d->next == NULL) // handle if the tail is to be delete.
+    if (d->next == NULL) // handle if the tail is to be deleted.
     {
         l->tail = p;
     }
