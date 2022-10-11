@@ -73,6 +73,13 @@
 
 ## Queue
 
-### :x: TBD
+### :heavy_check_mark: Queue implementation with linked list.
 
-### Queue algorithm questions done:
+- [x] `queue_create()`          - create a new queue.
+- [x] `queue_enqueue()`         - add an element to the end of the queue.
+- [x] `queue_dequeue()`         - remove an element at the front of the queue.
+- [x] `queue_empty()`           - if queue is empty.
+
+### Queue algorithm practice questions:
+
+- [x] None for now. 
