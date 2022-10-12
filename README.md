@@ -55,7 +55,7 @@
 - [x] Remove Duplicates From Linked List.
 - [x] Sum of Linked Lists.
 - [ ] Merge Linked List.
-- [ ] Detect Cycle in a Linked List.
+- [x] Detect Cycle in a Linked List.
 
 ## Stack
 
