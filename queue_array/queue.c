@@ -21,6 +21,7 @@ int queue_dequeue(Queue *q);
 int queue_size(Queue *q);
 int queue_empty(Queue *q);
 int queue_full(Queue *q);
+void queue_destory(Queue *q);
 
 void queue_print_queue_status(Queue *q)
 {
@@ -44,7 +45,7 @@ void test_all()
 {
     clock_t begin = clock();
     printf("Running all the tests...\n");
-    const int LENGTH = 1000000000;
+    const int LENGTH = 10000000;
     Queue *q = queue_create(LENGTH);
     assert(q->capacity == LENGTH && q->size == 0 && q->front == 0 && q->rear == 0);
     assert(queue_empty(q) == QUEUE_TRUE);
@@ -81,6 +82,7 @@ void test_all()
     }
     assert(q->capacity == LENGTH && q->size == 0 && q->front == (LENGTH / 2) && q->rear == (LENGTH / 2));
     printf("Test Case: queue_dequeue() - Passed.\n");
+    queue_destory(q);
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("%f\n", time_spent);
@@ -148,4 +150,10 @@ int queue_empty(Queue *q)
 int queue_full(Queue *q)
 {
     return q->size == q->capacity ? QUEUE_TRUE : QUEUE_FALSE;
+}
+
+void queue_destory(Queue *q)
+{
+    free(q->queue);
+    free(q);
 }
