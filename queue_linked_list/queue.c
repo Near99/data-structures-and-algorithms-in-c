@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <time.h>
 
 #define QUEUE_TRUE 1
 #define QUEUE_FALSE 0
@@ -25,8 +26,10 @@ void _queue_iterate(struct queue_node *node);
 
 int main()
 {
+    clock_t begin = clock();
+    printf("Running all the tests...\n");
     Queue *q = queue_create();
-    const int LOOP_F = 10000000;
+    const int LOOP_F = 100000000;
     assert(queue_empty(q) == QUEUE_TRUE);
     for (int i = 0; i < LOOP_F; i++)
     {
@@ -41,6 +44,9 @@ int main()
     printf("Test Case: queue_dequeue() - Passed.\n");
     assert(queue_empty(q) == QUEUE_TRUE);
     printf("Test Case: queue_empty() - Passed.\n");
+    clock_t end = clock();
+    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    printf("%f\n", time_spent);
     return 0;
 }
 
