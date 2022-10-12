@@ -22,6 +22,7 @@ Queue *queue_create();
 void queue_enqueue(Queue *q, int value);
 int queue_dequeue(Queue *q);
 int queue_empty(Queue *q);
+void queue_destory(Queue *q);
 void _queue_iterate(struct queue_node *node);
 
 int main()
@@ -29,7 +30,7 @@ int main()
     clock_t begin = clock();
     printf("Running all the tests...\n");
     Queue *q = queue_create();
-    const int LOOP_F = 100000000;
+    const int LOOP_F = 10000000;
     assert(queue_empty(q) == QUEUE_TRUE);
     for (int i = 0; i < LOOP_F; i++)
     {
@@ -44,6 +45,7 @@ int main()
     printf("Test Case: queue_dequeue() - Passed.\n");
     assert(queue_empty(q) == QUEUE_TRUE);
     printf("Test Case: queue_empty() - Passed.\n");
+    queue_destory(q);
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("%f\n", time_spent);
@@ -95,6 +97,18 @@ int queue_dequeue(Queue *q)
 int queue_empty(Queue *q)
 {
     return q->head == NULL ? QUEUE_TRUE : QUEUE_FALSE;
+}
+
+void queue_destory(Queue *q)
+{
+    struct queue_node *p = NULL, *c = q->head;
+    while (c != NULL)
+    {
+        p = c;
+        c = c->next;
+        free(p);
+    }
+    free(q);
 }
 
 void _queue_iterate(struct queue_node *node)
