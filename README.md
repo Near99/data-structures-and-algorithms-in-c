@@ -80,6 +80,15 @@
 - [x] `queue_dequeue()`         - remove an element at the front of the queue.
 - [x] `queue_empty()`           - if queue is empty.
 
+### :heavy_check_mark: Queue implementation with array.
+
+- [x] `queue_create()`          - create a new queue.
+- [x] `queue_enqueue()`         - add an element to the end of the queue.
+- [x] `queue_dequeue()`         - remove an element at the front of the queue.
+- [x] `queue_empty()`           - if queue is empty.
+- [x] `queue_full()`            - if queue is full.
+- [x] `queue_size()`            - size of the queue.
+
 ### Queue algorithm practice questions:
 
 - [x] None for now. 
