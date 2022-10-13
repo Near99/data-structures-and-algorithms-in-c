@@ -56,6 +56,7 @@
 - [x] Sum of Linked Lists.
 - [x] Merge Linked List.
 - [x] Detect Cycle in a Linked List.
+- [x] Delete the Middle Node of a Linked List.
 
 ## Stack
 
