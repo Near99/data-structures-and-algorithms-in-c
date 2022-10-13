@@ -45,7 +45,7 @@ void test_all()
 {
     clock_t begin = clock();
     printf("Running all the tests...\n");
-    const int LENGTH = 10000000;
+    const int LENGTH = 100000000;
     Queue *q = queue_create(LENGTH);
     assert(q->capacity == LENGTH && q->size == 0 && q->front == 0 && q->rear == 0);
     assert(queue_empty(q) == QUEUE_TRUE);
