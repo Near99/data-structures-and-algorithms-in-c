@@ -54,7 +54,7 @@
 - [x] Remove Kth Node From End.
 - [x] Remove Duplicates From Linked List.
 - [x] Sum of Linked Lists.
-- [ ] Merge Linked List.
+- [x] Merge Linked List.
 - [x] Detect Cycle in a Linked List.
 
 ## Stack
