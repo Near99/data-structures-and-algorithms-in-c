@@ -93,3 +93,5 @@
 ### Queue algorithm practice questions:
 
 - [x] None for now. 
+
+## Dictionary
