@@ -95,3 +95,5 @@
 - [x] None for now. 
 
 ## Dictionary
+
+## Tree
