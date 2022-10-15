@@ -96,6 +96,6 @@
 
 ## Dictionary
 
-## Tree
+## Trees
 
 ## Graph
