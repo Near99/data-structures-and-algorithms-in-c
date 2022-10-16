@@ -24,9 +24,9 @@
 - [x] Two Sum
 - [x] Validate Subsequence.
 - [ ] Best Time to Buy and Sell Stock.
-- [x] Move Element to End.
+- [ ] Move Element to End.
 - [x] Spiral Traverse.
-- [x] Longest Peak.
+- [ ] Longest Peak.
 - [ ] First Duplicate Value.
 - [ ] Four Number Sum.
 
