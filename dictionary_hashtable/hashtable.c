@@ -1,7 +1,10 @@
 /**
  * Just got an idea of what dictionary actually is with this super basic and simple
  * implementation. Didn't do chaining as there's not much fun of coding linked list,
- * and it won't help much as well so I'll just leave it there and move on ;).
+ * therefore collision is not handled. It won't help much I think so I'll just leave 
+ * it there and move on ;).
+ * The best practice is to study and learn the concepts through MIT lectures and
+ * some other reading materials then implementing a simple dictionary like this.
  */
 #include <stdio.h>
 #include <stdlib.h>
