@@ -96,6 +96,8 @@
 
 ## Dictionary
 
+### :heavy_check_mark: Dictionary implementation with hash map.
+
 - [x] `hashmap_create()`        - create a new hash map.
 - [x] `hashmap_insert()`        - insert an element to the dictionary.
 - [x] `hashmap_search()`        - search an element by key.
