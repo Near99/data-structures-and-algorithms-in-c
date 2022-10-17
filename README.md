@@ -96,6 +96,17 @@
 
 ## Dictionary
 
+- [x] `hashmap_create()`        - create a new hash map.
+- [x] `hashmap_insert()`        - insert an element to the dictionary.
+- [x] `hashmap_search()`        - search an element by key.
+- [x] `hashmap_delete()`        - delete an element by key.
+- [x] `hashmap_exist()`         - if exist.
+- [x] `_hasing()`               - generate hash index.
+
+### Dictionary algorithm practice questions:
+
+- [x] Not applicable as it is usually used with other data structures when solving algorithm problems.
+
 ## Trees
 
 ## Graph
