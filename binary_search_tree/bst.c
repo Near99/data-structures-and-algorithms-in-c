@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
+
 typedef struct tree
 {
     struct tree *parent;
@@ -16,41 +18,29 @@ void bst_print_descending(Tree *tree);
 int bst_get_min(Tree *tree);
 int bst_get_max(Tree *tree);
 int bst_node_count(Tree *tree);
-
+int bst_get_height(Tree *tree);
 void bst_traverse_inorder(Tree *tree);
 void bst_traverse_preorder(Tree *tree);
 void bst_traverse_postorder(Tree *tree);
 
 // todos..
-void bst_delete();
 int bst_is_in_tree();
-int bst_get_height(Tree *tree);
 int bst_valid();
-int bst_delete_value();
+int bst_delete_node();
 int bst_successor();
 
 int main()
 {
     Tree *tree = bst_create();
 
-    // const int arr1[] = {50, 20, 70, 15, 30, 10, 21, 22, 60, 100, 200};
+    // const int arr[] = {50, 20, 70, 15, 30, 10, 21, 22, 60, 100, 200};
     const int arr[] = {10, 5, 15, 2, 5, 22, 1};
-
     for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
     {
         bst_insert(&tree, arr[i], tree);
     }
-
-    // bst_print_ascending(tree);
-    // bst_print_descending(tree);
-    // printf("%d\n", bst_get_max(tree));
-    // printf("%d\n", bst_get_min(tree));
-    // printf("%d\n", bst_node_count(tree));
-    bst_traverse_inorder(tree);
-    printf("\n");
-    bst_traverse_preorder(tree);
-    printf("\n");
-    bst_traverse_postorder(tree);
+    int h = bst_get_height(tree);
+    printf("%d\n", h);
     return 0;
 }
 
@@ -165,4 +155,13 @@ void bst_traverse_postorder(Tree *tree)
     bst_traverse_postorder(tree->left);
     bst_traverse_postorder(tree->right);
     printf("%d ", tree->data);
+}
+
+int bst_get_height(Tree *tree)
+{
+    if (tree == NULL)
+    {
+        return 0;
+    }
+    return 1 + MAX(bst_get_height(tree->left), bst_get_height(tree->right));
 }
