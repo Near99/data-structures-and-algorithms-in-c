@@ -124,7 +124,7 @@
 - [x] `bst_traverse_preorder()` - traverse preorder.
 - [x] `bst_traverse_postorder()`- traverse postorder.
 - [ ] `bst_is_in_tree()`        - if value is in the tree.
-- [ ] `bst_get_height()`        - get the height of the BST.
+- [x] `bst_get_height()`        - get the height of the BST.
 - [ ] `bst_valid()`             - if is a valid BST.
 - [ ] `bst_delete_node()`       - delete node from a BST.
 - [ ] `bst_successor()`         - find the successor of the given node.
