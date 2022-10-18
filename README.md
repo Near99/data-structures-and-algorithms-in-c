@@ -111,4 +111,22 @@
 
 ## Trees
 
+### :heavy_check_mark: Binary Search Tree implementation.
+
+- [x] `bst_create()`            - create a new binary search tree.
+- [x] `bst_insert()`            - insert an element to the BST.
+- [x] `bst_print_ascending()`   - print BST nodes in ascending order.
+- [x] `bst_print_descending()`  - print BST nodes in descending order.
+- [x] `bst_get_min()`           - get minimum node in the BST.
+- [x] `bst_get_max()`           - get the maximum node in the BST.
+- [x] `bst_node_count()`        - count nodes in the BST.
+- [x] `bst_traverse_inorder()`  - traverse inorder.
+- [x] `bst_traverse_preorder()` - traverse preorder.
+- [x] `bst_traverse_postorder()`- traverse postorder.
+- [ ] `bst_is_in_tree()`        - if value is in the tree.
+- [ ] `bst_get_height()`        - get the height of the BST.
+- [ ] `bst_valid()`             - if is a valid BST.
+- [ ] `bst_delete_node()`       - delete node from a BST.
+- [ ] `bst_successor()`         - find the successor of the given node.
+
 ## Graph
