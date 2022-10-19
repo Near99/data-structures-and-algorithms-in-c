@@ -129,4 +129,9 @@
 - [ ] `bst_delete_node()`       - delete node from a BST.
 - [ ] `bst_successor()`         - find the successor of the given node.
 
+### BST algorithm practice questions:
+
+- [x] Validate BST.
+- [x] BST Traverse.
+
 ## Graph
