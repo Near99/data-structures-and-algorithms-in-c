@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
 #define BST_TRUE 1
@@ -25,9 +26,9 @@ int bst_valid(Tree *tree, int min, int max);
 void bst_traverse_inorder(Tree *tree);
 void bst_traverse_preorder(Tree *tree);
 void bst_traverse_postorder(Tree *tree);
+int bst_search(Tree *tree, int value);
 
 // todos..
-int bst_is_in_tree();
 int bst_delete_node();
 int bst_successor();
 
@@ -41,8 +42,6 @@ int main()
     {
         bst_insert(&tree, arr[i], tree);
     }
-    int r = bst_valid(tree, INT_MIN, INT_MAX);
-    printf("%d\n", r);
     return 0;
 }
 
@@ -179,4 +178,24 @@ int bst_valid(Tree *tree, int min, int max)
         return BST_FALSE;
     }
     return bst_valid(tree->left, min, tree->data) && bst_valid(tree->right, tree->data, max);
+}
+
+int bst_search(Tree *tree, int value)
+{
+    if (tree == NULL)
+    {
+        return BST_FALSE;
+    }
+    if (tree->data > value)
+    {
+        return bst_search(tree->left, value);
+    }
+    else if (tree->data < value)
+    {
+        return bst_search(tree->right, value);
+    }
+    else
+    {
+        return BST_TRUE;
+    }
 }
