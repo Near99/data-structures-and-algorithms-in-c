@@ -123,7 +123,7 @@
 - [x] `bst_traverse_inorder()`  - traverse inorder.
 - [x] `bst_traverse_preorder()` - traverse preorder.
 - [x] `bst_traverse_postorder()`- traverse postorder.
-- [ ] `bst_is_in_tree()`        - if value is in the tree.
+- [x] `bst_search()`            - if value is in the tree.
 - [x] `bst_get_height()`        - get the height of the BST.
 - [x] `bst_valid()`             - if is a valid BST.
 - [ ] `bst_delete_node()`       - delete node from a BST.
