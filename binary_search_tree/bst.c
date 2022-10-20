@@ -27,6 +27,7 @@ void bst_traverse_inorder(Tree *tree);
 void bst_traverse_preorder(Tree *tree);
 void bst_traverse_postorder(Tree *tree);
 int bst_search(Tree *tree, int value);
+void bst_invert(Tree *tree);
 
 // todos..
 int bst_delete_node();
@@ -42,6 +43,8 @@ int main()
     {
         bst_insert(&tree, arr[i], tree);
     }
+    bst_invert(tree);
+    bst_print_ascending(tree);
     return 0;
 }
 
@@ -198,4 +201,17 @@ int bst_search(Tree *tree, int value)
     {
         return BST_TRUE;
     }
+}
+
+void bst_invert(Tree *tree)
+{
+    if (tree == NULL)
+    {
+        return;
+    }
+    Tree *temp = tree->left;
+    tree->left = tree->right;
+    tree->right = temp;
+    bst_invert(tree->left);
+    bst_invert(tree->right);
 }
