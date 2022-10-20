@@ -133,5 +133,6 @@
 
 - [x] Validate BST.
 - [x] BST Traverse.
+- [x] Invert Binary Tree.
 
 ## Graph
