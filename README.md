@@ -120,9 +120,9 @@
 - [x] `bst_get_min()`           - get minimum node in the BST.
 - [x] `bst_get_max()`           - get the maximum node in the BST.
 - [x] `bst_node_count()`        - count nodes in the BST.
-- [x] `bst_traverse_inorder()`  - traverse inorder.
-- [x] `bst_traverse_preorder()` - traverse preorder.
-- [x] `bst_traverse_postorder()`- traverse postorder.
+- [x] `bst_traverse_inorder()`  - traverse inorder (left, current, right).
+- [x] `bst_traverse_preorder()` - traverse preorder (current, left, right).
+- [x] `bst_traverse_postorder()`- traverse postorder (left, right, current).
 - [x] `bst_search()`            - if value is in the tree.
 - [x] `bst_get_height()`        - get the height of the BST.
 - [x] `bst_valid()`             - if is a valid BST.
