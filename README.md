@@ -135,4 +135,21 @@
 - [x] BST Traverse.
 - [x] Invert Binary Tree.
 
-## Graph
+## Priority Queue && Binary Heap
+
+### :heavy_check_mark: Priority Queue implementation with heap.
+
+- [x] `p_queue_create()`        - create a new priority queue.
+- [x] `p_queue_insert()`        - insert an element to the queue.
+- [x] `p_queue_fine_min()`      - find the minimum element in the queue.
+- [ ] `p_queue_delete_min()`    - delete the minimum element in the queue.
+- [x] `p_queue_size()`          - size of the queue.
+- [x] `p_queue_is_empty()`      - if the queue is empty.
+- [x] `p_queue_is_full()`       - if the queue is full.
+- [x] `p_queue_parent()`        - helper function, get the parent's index.
+- [x] `p_queue_young_child()`   - helper function, get the child's index.
+- [x] `p_queue_bubble_up()`     - helper funtionc, bubble the smallest element to the top.
+
+### Heap practice questions:
+
+- [ ] Heap Sort.
