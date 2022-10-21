@@ -1,155 +1,173 @@
-# Practical Data structures and Algorithms in C
+/**
+ * Priority Queue Implementation using Binary Heap.
+ */
+#include <stdio.h>
+#include <stdlib.h>
 
-## Array
+#define P_QUEUE_TRUE 1
+#define P_QUEUE_FALSE 0
 
-### :heavy_check_mark: Vector implementation. 
+typedef struct priority_queue
+{
+    int *queue;
+    int size; // size n
+    int capacity;
+} Priority_Queue;
 
-- [x] `vector_create()`          - create a new vector.
-- [x] `vector_destory()`         - destory a vector. 
-- [x] `vector_extend_capacity()` - double the capacity automatically when needed.
-- [x] `vector_shrink_capacity()` - shrink the capacity automatically when needed.
-- [x] `vector_push()`            - add element to the end of the vector.
-- [x] `vector_pop()`             - remove the last element from the vector and return that element.
-- [x] `vector_at()`              - return the element at given index.
-- [x] `vector_is_empty()`        - if the vector is empty.
-- [x] `vector_find()`            - return the first index of the given element.
-- [x] `vector_size()`            - size of the vector.
-- [x] `vector_capacity()`        - current capacity.
-- [x] `vector_insert()`          - insert new element at given index and shift trailing elements to the right.
-- [x] `vector_delete()`          - delete the element at given index and shift trailing elements to the left.
-- [x] `vector_remove()`          - remove all matched elements.
+Priority_Queue *p_queue_create(int size);
+void p_queue_insert(Priority_Queue *Q, int x);
+int p_queue_find_min(Priority_Queue *Q);
+int p_queue_extract_min(Priority_Queue *Q);
+int p_queue_size(Priority_Queue *Q);
+int p_queue_is_empty(Priority_Queue *Q);
+int p_queue_is_full(Priority_Queue *Q);
+int p_queue_parent(int index);
+int p_queue_young_child(int index);
+void p_queue_bubble_up(Priority_Queue *Q, int index);
+void p_queue_bubble_down(Priority_Queue *Q, int index); // percolate down operation also called heapify
+/**
+ * heapsort is nothing but an implementation of selection sort using the right data structre. 
+ */
+void heap_sort(int s[], int n);
+void make_heap(Priority_Queue *Q, int s[], int n);
+void pq_print(Priority_Queue *Q);
 
-### Array algorithm practice questions:
+int main()
+{
+    Priority_Queue *q = p_queue_create(10);
+    int arr[] = {200, 2, 19, 55, 70, 34, 28, 25, 66, 44};
+    int heapsort[10];
+    make_heap(q, arr, 10);
+    for (int i = 0; i < 10; i++)
+    {
+        heapsort[i] = p_queue_extract_min(q);
+    }
+    for (int i = 0; i < 10; i++)
+    {
+        printf("%d\n", heapsort[i]);
+    }
+    return 0;
+}
 
-- [x] Two Sum
-- [x] Validate Subsequence.
-- [ ] Best Time to Buy and Sell Stock.
-- [ ] Move Element to End.
-- [x] Spiral Traverse.
-- [ ] Longest Peak.
-- [ ] First Duplicate Value.
-- [ ] Four Number Sum.
+Priority_Queue *p_queue_create(int size)
+{
+    Priority_Queue *new_queue = malloc(sizeof(Priority_Queue));
+    new_queue->queue = malloc(sizeof(int) * size);
+    new_queue->size = 0;
+    new_queue->capacity = size;
+    for (int i = 0; i < size; i++)
+    {
+        new_queue->queue[i] = -1;
+    }
+    return new_queue;
+}
 
-## List
+int p_queue_find_min(Priority_Queue *Q)
+{
+    if (p_queue_is_empty(Q))
+    {
+        exit(EXIT_FAILURE);
+    }
+    return Q->queue[0];
+}
 
-### :heavy_check_mark: Singly linked list with tail implementation.
+int p_queue_extract_min(Priority_Queue *Q)
+{
+    if (p_queue_is_empty(Q))
+    {
+        printf("Empty queue!\n");
+        exit(EXIT_FAILURE);
+    }
+    int min = Q->queue[0];
+    Q->queue[0] = Q->queue[--Q->size];
+    p_queue_bubble_down(Q, 0);
+    return min;
+}
 
-- [x] `list_create()`           - create a new linked list.
-- [x] `list_insert_front()`     - insert a node at front of the list.
-- [x] `list_insert_back()`      - insert a node at end of the list.
-- [x] `list_insert_by_index()`  - insert a node at the given index.
-- [x] `list_search_by_index()`  - search a node at the given index and return its value.
-- [x] `list_pop_front()`        - remove the first node of the list.
-- [x] `list_pop_back()`         - remove the last node of the list.
-- [x] `list_traverse()`         - traverse the list and print the value.
-- [x] `list_recursive()`        - traverse the linked list recursively servers as a helper function to `list_traverse()` api.
-- [x] `list_destory()`          - destory the list and release the memory.
-- [x] `list_remove()`           - remove the node by the given value.
-- [x] `list_empty()`            - if list is empty.
-- [x] `list_size()`             - size of the list.
+void p_queue_insert(Priority_Queue *Q, int x)
+{
+    if (p_queue_is_full(Q))
+    {
+        printf("Queue is full!\n");
+        exit(EXIT_FAILURE);
+    }
+    Q->queue[Q->size++] = x;
+    p_queue_bubble_up(Q, Q->size - 1);
+}
 
-### Linked-list algorithm practice questions: 
+int p_queue_size(Priority_Queue *Q) { return Q->size; }
 
-- [x] Reverse Linked List.
-- [x] Remove Kth Node From End.
-- [x] Remove Duplicates From Linked List.
-- [x] Sum of Linked Lists.
-- [x] Merge Linked List.
-- [x] Detect Cycle in a Linked List.
-- [x] Delete the Middle Node of a Linked List.
+int p_queue_is_empty(Priority_Queue *Q) { return Q->size == 0 ? P_QUEUE_TRUE : P_QUEUE_FALSE; }
 
-## Stack
+int p_queue_is_full(Priority_Queue *Q) { return Q->capacity == Q->size ? P_QUEUE_TRUE : P_QUEUE_FALSE; }
 
-### :heavy_check_mark: Stack implementation with linked list.
+int p_queue_young_child(int index) { return ((2 * index) + 1); }
 
-- [x] `stack_create()`          - create a new stack.
-- [x] `stack_push()`            - add an element to the stack.
-- [x] `stack_pop()`             - remove an element from the stack.
-- [x] `stack_is_empty()`        - if stack is empty.
+int p_queue_parent(int index)
+{
+    if (index == 0)
+    {
+        return (-1);
+    }
+    else
+    {
+        return ((index - 1) / 2);
+    }
+}
 
-### Stack algorithm practice questions:
+void p_queue_bubble_up(Priority_Queue *Q, int index)
+{
+    if (p_queue_parent(index) == -1)
+    {
+        return;
+    }
+    if (Q->queue[p_queue_parent(index)] > Q->queue[index])
+    {
+        int temp = Q->queue[p_queue_parent(index)];
+        Q->queue[p_queue_parent(index)] = Q->queue[index];
+        Q->queue[index] = temp;
+        p_queue_bubble_up(Q, p_queue_parent(index));
+    }
+}
 
-- [x] Balanced Brackets.
-- [x] Next Greater Element.
+void p_queue_bubble_down(Priority_Queue *Q, int p)
+{
+    // min
+    int m = p;
+    // child
+    int c = p_queue_young_child(m);
+    // loop twich to find which child is smaller.
+    for (int i = 0; i <= 1; i++)
+    {
+        if ((c + i) < Q->size) // boundary check.
+        {
+            if (Q->queue[m] > Q->queue[c + i])
+            {
+                m = c + i;
+            }
+        }
+    }
+    if (m != p)
+    {
+        int temp = Q->queue[m];
+        Q->queue[m] = Q->queue[p];
+        Q->queue[p] = temp;
+        p_queue_bubble_down(Q, m);
+    }
+}
 
-## Queue
+void pq_print(Priority_Queue *Q)
+{
+    for (int i = 0; i < Q->capacity; i++)
+    {
+        printf("%d\n", Q->queue[i]);
+    }
+}
 
-### :heavy_check_mark: Queue implementation with linked list.
-
-- [x] `queue_create()`          - create a new queue.
-- [x] `queue_enqueue()`         - add an element to the end of the queue.
-- [x] `queue_dequeue()`         - remove an element at the front of the queue.
-- [x] `queue_empty()`           - if queue is empty.
-
-### :heavy_check_mark: Queue implementation with array.
-
-- [x] `queue_create()`          - create a new queue.
-- [x] `queue_enqueue()`         - add an element to the end of the queue.
-- [x] `queue_dequeue()`         - remove an element at the front of the queue.
-- [x] `queue_empty()`           - if queue is empty.
-- [x] `queue_full()`            - if queue is full.
-- [x] `queue_size()`            - size of the queue.
-
-### Queue algorithm practice questions:
-
-- [x] None for now. 
-
-## Dictionary
-
-### :heavy_check_mark: Dictionary implementation with hash map.
-
-- [x] `hashmap_create()`        - create a new hash map.
-- [x] `hashmap_insert()`        - insert an element to the dictionary.
-- [x] `hashmap_search()`        - search an element by key.
-- [x] `hashmap_delete()`        - delete an element by key.
-- [x] `hashmap_exist()`         - if exist.
-- [x] `_hasing()`               - generate hash index.
-
-### Dictionary algorithm practice questions:
-
-- [x] Not applicable as it is usually used with other data structures when solving algorithm problems.
-
-## Trees
-
-### :heavy_check_mark: Binary Search Tree implementation.
-
-- [x] `bst_create()`            - create a new binary search tree.
-- [x] `bst_insert()`            - insert an element to the BST.
-- [x] `bst_print_ascending()`   - print BST nodes in ascending order.
-- [x] `bst_print_descending()`  - print BST nodes in descending order.
-- [x] `bst_get_min()`           - get minimum node in the BST.
-- [x] `bst_get_max()`           - get the maximum node in the BST.
-- [x] `bst_node_count()`        - count nodes in the BST.
-- [x] `bst_traverse_inorder()`  - traverse inorder (left, current, right).
-- [x] `bst_traverse_preorder()` - traverse preorder (current, left, right).
-- [x] `bst_traverse_postorder()`- traverse postorder (left, right, current).
-- [x] `bst_search()`            - if value is in the tree.
-- [x] `bst_get_height()`        - get the height of the BST.
-- [x] `bst_valid()`             - if is a valid BST.
-- [ ] `bst_delete_node()`       - delete node from a BST.
-- [ ] `bst_successor()`         - find the successor of the given node.
-
-### BST algorithm practice questions:
-
-- [x] Validate BST.
-- [x] BST Traverse.
-- [x] Invert Binary Tree.
-
-## Priority Queue && Binary Heap
-
-### :heavy_check_mark: Priority Queue implementation with heap.
-
-- [x] `p_queue_create()`        - create a new priority queue.
-- [x] `p_queue_insert()`        - insert an element to the queue.
-- [x] `p_queue_fine_min()`      - find the minimum element in the queue.
-- [ ] `p_queue_delete_min()`    - delete the minimum element in the queue.
-- [x] `p_queue_size()`          - size of the queue.
-- [x] `p_queue_is_empty()`      - if the queue is empty.
-- [x] `p_queue_is_full()`       - if the queue is full.
-- [x] `p_queue_parent()`        - helper function, get the parent's index.
-- [x] `p_queue_young_child()`   - helper function, get the child's index.
-- [x] `p_queue_bubble_up()`     - helper funtionc, bubble the smallest element to the top.
-
-### Heap practice questions:
-
-- [ ] Heap Sort.
+void make_heap(Priority_Queue *Q, int s[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        p_queue_insert(Q, s[i]);
+    }
+}
