@@ -135,8 +135,6 @@ programming, or any other modern languages you like such as Java, Python, JavaSc
 - [x] `bst_search()`            - if value is in the tree.
 - [x] `bst_get_height()`        - get the height of the BST.
 - [x] `bst_valid()`             - if is a valid BST.
-- [ ] `bst_delete_node()`       - delete node from a BST.
-- [ ] `bst_successor()`         - find the successor of the given node.
 
 ### BST algorithm practice questions:
 

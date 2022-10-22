@@ -29,16 +29,11 @@ void bst_traverse_postorder(Tree *tree);
 int bst_search(Tree *tree, int value);
 void bst_invert(Tree *tree);
 
-// todos..
-int bst_delete_node();
-int bst_successor();
-
 int main()
 {
     Tree *tree = bst_create();
 
     const int arr[] = {50, 20, 70, 15, 30, 10, 21, 22, 60, 100, 200};
-    // const int arr[] = {10, 5, 15, 2, 5, 22, 1};
     for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
     {
         bst_insert(&tree, arr[i], tree);
