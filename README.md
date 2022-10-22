@@ -7,7 +7,7 @@ C is just the best for basic data structures I encourage anyone who wants to get
 coding with C for a while to really feel the beauty of data structures and algorithms in your bones. However, C 
 is such a low level language compared to most of the high level languages which brings us some inconvenience to 
 practice algorithm problems. Some of the algorithm questions listed below are not done in C for example. I would 
-suggest to stop coding in c from what I've done in this repo and switch to  c++ if you are really into c style 
+suggest to stop coding in C from what I've done in this repo and switch to C++ if you are really into c style 
 programming, or any other modern languages you like such as Java, Python, JavaScript just to name a few. Best of luck!
 
 ## Array
