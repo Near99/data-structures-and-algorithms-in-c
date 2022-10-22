@@ -1,5 +1,15 @@
 # Practical Data structures and Algorithms in C
 
+## October-22-2022 Update
+
+Well It's been a while since I started coding data structures in C, had a lot of fun and learned a lot from it.
+C is just the best for basic data structures I encourage anyone who wants to get better at data structures to 
+coding with C for a while to really feel the beauty of data structures and algorithms in your bones. However, C 
+is such a low level language compared to most of the high level languages which brings us some inconvenience to 
+practice algorithm problems. Some of the algorithm questions listed below are not done in C for example. I would 
+suggest to stop coding in c from what I've done in this repo and switch to  c++ if you are really into c style 
+programming, or any other modern languages you like such as Java, Python, JavaScript just to name a few. Best of luck!
+
 ## Array
 
 ### :heavy_check_mark: Vector implementation. 
@@ -23,12 +33,11 @@
 
 - [x] Two Sum
 - [x] Validate Subsequence.
-- [ ] Best Time to Buy and Sell Stock.
-- [ ] Move Element to End.
+- [x] Best Time to Buy and Sell Stock.
+- [x] Move Element to End.
 - [x] Spiral Traverse.
-- [ ] Longest Peak.
-- [ ] First Duplicate Value.
-- [ ] Four Number Sum.
+- [x] Longest Peak.
+- [x] First Duplicate Value.
 
 ## List
 
